@@ -177,14 +177,19 @@ plot(fit, which=2)
 # calculating the sample deviation of residual
 sigma1 <- sqrt(deviance(fitno)/df.residual(fitno))
 
+# calculating studentized residual
+resid(fit)[1] / (sigma1 * sqrt(1-hatvalues(fit)[1]))
 
+# comparing the studentized residual with those of the other sample
+head(rstudent(fit))
 
+# cook's distance - tells how much a sample changes a model
+# comparing models with and without outlier included, we have
+dy <- predict(fitno, out2) - predict(fit, out2)
 
+# calculating outlier's cook's distance
+sum(dy^2)/(2*sigma^2) 
 
-
-
-
-
-
-
+# displaying diagnostic plot for cook's distance
+plot(fit, which=5)
 
